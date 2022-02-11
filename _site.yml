@@ -1,0 +1,9 @@
+name: "Lab 3"
+navbar:
+  title: "Penguin Website"
+  left:
+    - text: "Cars"
+      href: penguin_data_vis.html
+    - text: "About"
+      href: about.html
+output_dir: "."
