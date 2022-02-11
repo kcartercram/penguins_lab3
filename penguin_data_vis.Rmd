@@ -1,0 +1,61 @@
+---
+title: "Penguin Data Visualization"
+author: "Kate"
+date: "2/11/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(palmerpenguins)
+library(tidyverse)
+```
+
+<br>
+
+## Data
+
+This palmerpenguins data package was collected and made available by Dr. Kristen Gorman and the Palmer Station, Antarctica LTER, a member of the Long Term Ecological Research Network.  Both datasets contain data for 344 penguins. There are 3 different species of penguins in this dataset, collected from 3 islands in the Palmer Archipelago, Antarctica.
+
+![](https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/f14f55a7-452d-43ee-9ac8-4924120f75d8/decg8fk-fcd6a72e-2417-40b5-8516-57970a705f73.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcL2YxNGY1NWE3LTQ1MmQtNDNlZS05YWM4LTQ5MjQxMjBmNzVkOFwvZGVjZzhmay1mY2Q2YTcyZS0yNDE3LTQwYjUtODUxNi01Nzk3MGE3MDVmNzMuanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.v1E78Q_i9qPlFDdw7FNl8SEc6NwP9f9vPEAW5MkTAJs)
+
+
+
+  
+  
+## Single Trait Distribution 
+
+```{r, echo=FALSE, warning=FALSE}
+penguins %>% 
+ggplot() +  
+geom_density(mapping = aes(x = bill_length_mm, fill=species), alpha=0.5)
+```
+
+```{r, echo=FALSE, warning=FALSE}
+ggplot(data = penguins, mapping = aes(x = sex, y = body_mass_g)) + 
+  geom_point(mapping = aes(color = sex), shape = 1) 
+```
+
+
+## Relationship Between Multiple Traits
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+ggplot(data = penguins, mapping = aes(x = flipper_length_mm, y = bill_length_mm)) + 
+  geom_point(mapping = aes(color = sex), shape = 1) +
+  geom_smooth(mapping = aes (x = flipper_length_mm, y= bill_length_mm))
+```
+
+
+## Sexual Dimorphism 
+```{r, echo=FALSE, warning=FALSE}
+penguins %>%
+  ggplot(mapping = aes(x=flipper_length_mm, y=sex, color=sex)) +
+  geom_boxplot(outlier.alpha = 0, alpha=0) +
+  geom_jitter(width = 0, size=1) +
+  coord_flip() +
+  facet_wrap(~species)
+```
+
